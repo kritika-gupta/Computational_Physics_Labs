@@ -1,0 +1,30 @@
+%DO CHECK THE CODE ONCE
+clear all;
+C = 1;
+L = 1;
+R = 0.2;
+maxtime = 15;
+dt = 0.001;
+n = maxtime/dt;
+Q = zeros(n,1);
+I = zeros(n,1);
+E = zeros(n,1);
+time = zeros(n,1);
+for step=1:n-1
+E(step) = sin(12*pi*time(step));
+%E(step)
+%E(step + 1) = sin(12*pi*(time(step) + dt));
+I(step + 1) = I(step) + (E(step) - (Q(step)/C) - (R*I(step)))*dt/L;
+Q(step + 1) = Q(step) + I(step)*dt;
+time(step + 1) = time(step) + dt;
+end;
+
+E(n) = sin(12*pi*time(n));
+figure;
+plot(time,I);
+xlabel('Time (s)');
+ylabel('Current (Ampere)');
+figure;
+plot(time,Q);
+xlabel('Time (s)');
+ylabel('Charge (Coulomb)');
